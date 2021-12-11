@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/The Arrival (BATTLE II).mp3-0c5b8c9372974fa41339335e003de56a.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sprites/rpg-pack/soundtrack/The Arrival (BATTLE II).mp3"
+dest_files=[ "res://.import/The Arrival (BATTLE II).mp3-0c5b8c9372974fa41339335e003de56a.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

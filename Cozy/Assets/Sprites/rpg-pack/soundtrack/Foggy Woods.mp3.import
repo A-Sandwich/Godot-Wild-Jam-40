@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Foggy Woods.mp3-a2ca236f88ff10878c596cad838c9ebc.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sprites/rpg-pack/soundtrack/Foggy Woods.mp3"
+dest_files=[ "res://.import/Foggy Woods.mp3-a2ca236f88ff10878c596cad838c9ebc.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

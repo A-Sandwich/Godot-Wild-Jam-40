@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Nocturnal Mysteries.mp3-f8afaeead2dc136274f24c288740a5de.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sprites/rpg-pack/soundtrack/Nocturnal Mysteries.mp3"
+dest_files=[ "res://.import/Nocturnal Mysteries.mp3-f8afaeead2dc136274f24c288740a5de.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
