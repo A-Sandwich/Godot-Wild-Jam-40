@@ -25,7 +25,10 @@ func move(delta):
 		return
 
 	var collision = move_and_collide(movement_direction * movement_speed * delta)
+	if collision and "Log" in collision.name:
+		print("Loggy")
 	if collision:
+		print("name", collision.name)
 		movement_direction *= -1
 		destination_position = starting_position
 	
@@ -67,21 +70,17 @@ func process_input(delta):
 			destination_position = original_position
 			is_moving = false
 			movement_direction = Vector2.ZERO
-			print("Position invalid")
+			#print("Position invalid")
 			return
 		else:
 			is_moving = true
 
 func _draw():
-	print("drawing", starting_position, destination_position)
+	#print("drawing", starting_position, destination_position)
 	draw_line(to_local(starting_position), to_local(destination_position), Color(1, 1, 0))
 
 func is_position_invalid():
 	var result = check_destination()
-	if result.empty():
-		print("valid")
-	else:
-		print("invalid")
 	return !result.empty()
 
 func populate_target_destination():
@@ -89,14 +88,17 @@ func populate_target_destination():
 	var move_vector = movement_direction if movement_direction != Vector2.ZERO else target_direction
 	starting_position = global_position + offset
 	destination_position = starting_position + (move_vector * grid_size)
-	print("start", starting_position, "dest", destination_position, move_vector * grid_size)
+	#print("start", starting_position, "dest", destination_position, move_vector * grid_size)
 	return original_position
 	
 func check_destination():
 	update()
 	var space_state = get_world_2d().direct_space_state
 	# use global coordinates, not local to node
-	var result = space_state.intersect_ray(starting_position, destination_position, [self, $CollisionShape2D], 1)
+	var ignore = get_tree().get_nodes_in_group("log")
+	ignore.append(self)
+	ignore.append($CollisionShape2D)
+	var result = space_state.intersect_ray(starting_position, destination_position, ignore, 1)
 	return result
 
 func choose_animation():
@@ -118,6 +120,10 @@ func chop_tree(delta):
 	if target.empty():
 		return
 	var collider = target.collider
-	print(collider.get_parent().name)
+	#print(collider.get_parent().name)
 	if "Tree" in collider.name:
 		collider.chop_chop(delta)
+
+
+func get_log():
+	print("lorg got")
