@@ -7,11 +7,15 @@ var total_resource = resource_amount
 var chop_progress = 0
 var chop_total = 1
 var rng =  RandomNumberGenerator.new()
+var is_growing = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$TotalResources.value = 100
 	rng.randomize()
+	if is_growing:
+		$Sprite.scale = Vector2(0.25, 0.25)
+		$GrowTimer.start()
 
 
 func remove_resource():
@@ -53,3 +57,10 @@ func update_meter_visibility(is_visible):
 
 func _on_MeterTimeout_timeout():
 	update_meter_visibility(false)
+
+
+func _on_GrowTimer_timeout():
+	$Sprite.scale.x += 0.25
+	$Sprite.scale.y += 0.25
+	if $Sprite.scale.x >= 1:
+		$GrowTimer.stop()

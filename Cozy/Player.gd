@@ -8,6 +8,7 @@ var grid_size = 16
 var movement_speed = 100
 var movement_direction = Vector2.ZERO
 var target_direction = Vector2.ZERO
+var tree = preload("res://WorldParts/Tree.tscn")
 
 
 func _ready():
@@ -25,9 +26,7 @@ func move(delta):
 		return
 
 	var collision = move_and_collide(movement_direction * movement_speed * delta)
-	if collision and "Log" in collision.name:
-		print("Loggy")
-	if collision:
+	if collision and collision.name:
 		print("name", collision.name)
 		movement_direction *= -1
 		destination_position = starting_position
@@ -40,12 +39,13 @@ func process_input(delta):
 	if Input.is_action_just_pressed("action_button"):
 		$AnimatedSprite.play("axe")
 		chop_tree(0)
+		feed_fire()
+		plant_seed()
 		return
 
 	# I feel like this could cause a bug
 	if Input.is_action_pressed("action_button"):
 		chop_tree(delta)
-		feed_fire()
 	
 	if Input.is_action_just_released("action_button"):
 		$AnimatedSprite.stop()
@@ -138,6 +138,18 @@ func feed_fire():
 	if "Fire" in collider.name:
 		$HUD.remove_log()
 		collider.add_wood()
+
+func plant_seed():
+	if $HUD.seeds <= 0:
+		return
+	var target = check_destination()
+	if not target.empty():
+		return
+	$HUD.remove_seed()
+	var plant = tree.instance()
+	plant.position = destination_position
+	plant.is_growing = true
+	get_tree().root.add_child(plant)
 
 func get_log():
 	$HUD.add_log()
