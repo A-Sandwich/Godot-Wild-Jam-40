@@ -97,6 +97,7 @@ func check_destination():
 	var space_state = get_world_2d().direct_space_state
 	# use global coordinates, not local to node
 	var ignore = get_tree().get_nodes_in_group("log")
+	ignore.append_array(get_tree().get_nodes_in_group("seed"))
 	ignore.append(self)
 	ignore.append($CollisionShape2D)
 	var result = space_state.intersect_ray(starting_position, destination_position, ignore, 1)
@@ -140,3 +141,6 @@ func feed_fire():
 
 func get_log():
 	$HUD.add_log()
+
+func add_seed():
+	$HUD.add_seed()

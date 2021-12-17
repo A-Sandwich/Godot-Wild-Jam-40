@@ -78,3 +78,6 @@ frame = 5
 centered = false
 
 [node name="HUD" parent="." instance=ExtResource( 4 )]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
