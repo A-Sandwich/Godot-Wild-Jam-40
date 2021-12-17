@@ -14,7 +14,7 @@ func _ready():
 	pass
 
 func _physics_process(delta):
-	process_input()
+	process_input(delta)
 	choose_animation()
 	move(delta)
 
@@ -30,14 +30,19 @@ func move(delta):
 		destination_position = starting_position
 	
 
-func process_input():
+func process_input(delta):
 	if is_moving:
 		return
 
 	if Input.is_action_just_pressed("action_button"):
 		$AnimatedSprite.play("axe")
-		chop_tree()
+		chop_tree(0)
 		return
+
+	# I feel like this could cause a bug
+	if Input.is_action_pressed("action_button"):
+		chop_tree(delta)
+	
 	if Input.is_action_just_released("action_button"):
 		$AnimatedSprite.stop()
 		$AnimatedSprite.animation = "walk"
@@ -109,12 +114,12 @@ func choose_animation():
 		elif not $AnimatedSprite.animation != "walk" or not $AnimatedSprite.is_playing():
 			$AnimatedSprite.play("walk")
 
-func chop_tree():
+func chop_tree(delta):
 	populate_target_destination()
 	var target = check_destination()
 	if target.empty():
 		return
 	var collider = target.collider
 	print(collider.get_parent().name)
-	if "Tree" in collider.get_parent().name:
-		print("Chop chop")
+	if "Tree" in collider.name:
+		collider.chop_chop(delta)
