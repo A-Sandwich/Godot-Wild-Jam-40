@@ -7,7 +7,7 @@ var offset = Vector2(8, 8)
 var grid_size = 16
 var movement_speed = 100
 var movement_direction = Vector2.ZERO
-var last_direction_moved = Vector2.ZERO
+var target_direction = Vector2.ZERO
 
 
 func _ready():
@@ -15,7 +15,7 @@ func _ready():
 
 func _physics_process(delta):
 	process_input(delta)
-	choose_animation()
+	play_animation()
 	move(delta)
 
 func move(delta):
@@ -60,6 +60,7 @@ func process_input(delta):
 	elif Input.is_action_pressed("move_down"):
 		movement_direction.y = 1
 	if movement_direction != Vector2.ZERO:
+		choose_animation()
 		var original_position = populate_target_destination()
 		update()
 		if is_position_invalid():
@@ -70,7 +71,6 @@ func process_input(delta):
 			return
 		else:
 			is_moving = true
-			last_direction_moved = movement_direction
 
 func _draw():
 	print("drawing", starting_position, destination_position)
@@ -86,34 +86,32 @@ func is_position_invalid():
 
 func populate_target_destination():
 	var original_position = global_position
-	var move_vector = movement_direction if movement_direction != Vector2.ZERO else last_direction_moved
+	var move_vector = movement_direction if movement_direction != Vector2.ZERO else target_direction
 	starting_position = global_position + offset
 	destination_position = starting_position + (move_vector * grid_size)
 	print("start", starting_position, "dest", destination_position, move_vector * grid_size)
 	return original_position
 	
 func check_destination():
+	update()
 	var space_state = get_world_2d().direct_space_state
 	# use global coordinates, not local to node
 	var result = space_state.intersect_ray(starting_position, destination_position, [self, $CollisionShape2D], 1)
 	return result
 
 func choose_animation():
+	if movement_direction.x == 1:
+		target_direction = Vector2(1, 0)
+		$AnimatedSprite.flip_h = false
+	elif movement_direction.x == -1:
+		target_direction = Vector2(-1, 0)
+		$AnimatedSprite.flip_h = true
+
+func play_animation():
 	if $AnimatedSprite.playing and not is_moving and $AnimatedSprite.animation == "walk":
 		$AnimatedSprite.stop()
-	
 	if is_moving:
-		if movement_direction.x == 1:
-			$AnimatedSprite.flip_h = false
-			if not $AnimatedSprite.animation != "walk" or not $AnimatedSprite.is_playing():
-				$AnimatedSprite.play("walk")
-		elif movement_direction.x == -1:
-			$AnimatedSprite.flip_h = true
-			if not $AnimatedSprite.animation != "walk" or not $AnimatedSprite.is_playing():
-				$AnimatedSprite.play("walk")
-		elif not $AnimatedSprite.animation != "walk" or not $AnimatedSprite.is_playing():
-			$AnimatedSprite.play("walk")
-
+		$AnimatedSprite.play("walk")
 func chop_tree(delta):
 	populate_target_destination()
 	var target = check_destination()
