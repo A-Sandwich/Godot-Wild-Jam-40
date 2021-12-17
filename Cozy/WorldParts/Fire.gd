@@ -44,6 +44,8 @@ func remove_log():
 	get_node("Wood/log"+str(current_logs)).visible = false
 	
 func add_wood():
+	if current_logs >= max_logs:
+		return false
 	get_node("Wood/log"+str(current_logs)).visible = true
 	current_logs += 1
 	if not $FireParticle.visible:
@@ -53,3 +55,4 @@ func add_wood():
 		particle.position = $FireParticle.position
 		extra_particles.append(particle)
 		add_child(particle)
+	return true

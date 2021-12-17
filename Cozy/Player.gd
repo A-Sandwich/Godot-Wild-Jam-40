@@ -136,7 +136,8 @@ func feed_fire():
 	var collider = target.collider
 	if "Fire" in collider.name:
 		$HUD.remove_log()
-		collider.add_wood()
+		if not collider.add_wood():
+			$HUD.add_log()
 
 func plant_seed():
 	if $HUD.seeds <= 0:

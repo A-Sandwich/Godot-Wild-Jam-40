@@ -80,8 +80,9 @@ func _on_MeterTimeout_timeout():
 
 
 func _on_GrowTimer_timeout():
-	resource_amount += 1
-	target_scale += 0.25
 	if scale.x >= 1:
 		$GrowTimer.stop()
 		is_growing = false
+		return
+	resource_amount += 1
+	target_scale += 0.25
