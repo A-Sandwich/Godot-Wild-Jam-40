@@ -26,8 +26,7 @@ func move(delta):
 		return
 
 	var collision = move_and_collide(movement_direction * movement_speed * delta)
-	if collision and collision.name:
-		print("name", collision.name)
+	if collision:
 		movement_direction *= -1
 		destination_position = starting_position
 	

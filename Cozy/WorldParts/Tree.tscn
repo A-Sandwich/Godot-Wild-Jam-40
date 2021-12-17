@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Assets/Sprites/rpg-pack/props n decorations/generic-rpg-tree02.png" type="Texture" id=1]
 [ext_resource path="res://WorldParts/Tree.gd" type="Script" id=2]
@@ -14,6 +14,12 @@ bg_color = Color( 0.945098, 0.54902, 0, 1 )
 bg_color = Color( 0.945098, 0.54902, 0, 1 )
 
 [sub_resource type="StyleBoxEmpty" id=4]
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0.415686, 1, 0, 1 )
+
+[sub_resource type="StyleBoxFlat" id=6]
+bg_color = Color( 0, 0, 0, 0.345098 )
 
 [node name="Tree" type="StaticBody2D" groups=["tree"]]
 script = ExtResource( 2 )
@@ -55,6 +61,21 @@ __meta__ = {
 
 [node name="GrowTimer" type="Timer" parent="."]
 wait_time = 5.0
+
+[node name="GrowMeter" type="ProgressBar" parent="."]
+margin_left = -27.0
+margin_top = 38.0
+margin_right = 27.0
+margin_bottom = 42.0
+custom_colors/font_color = Color( 0.0313726, 1, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_styles/fg = SubResource( 5 )
+custom_styles/bg = SubResource( 6 )
+value = 10.0
+percent_visible = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [connection signal="timeout" from="MeterTimeout" to="." method="_on_MeterTimeout_timeout"]
 [connection signal="timeout" from="GrowTimer" to="." method="_on_GrowTimer_timeout"]
