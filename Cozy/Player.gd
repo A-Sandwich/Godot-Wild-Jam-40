@@ -45,6 +45,7 @@ func process_input(delta):
 	# I feel like this could cause a bug
 	if Input.is_action_pressed("action_button"):
 		chop_tree(delta)
+		feed_fire()
 	
 	if Input.is_action_just_released("action_button"):
 		$AnimatedSprite.stop()
@@ -114,6 +115,7 @@ func play_animation():
 		$AnimatedSprite.stop()
 	if is_moving:
 		$AnimatedSprite.play("walk")
+
 func chop_tree(delta):
 	populate_target_destination()
 	var target = check_destination()
@@ -124,6 +126,17 @@ func chop_tree(delta):
 	if "Tree" in collider.name:
 		collider.chop_chop(delta)
 
+func feed_fire():
+	if $HUD.logs <= 0:
+		return
+	populate_target_destination()
+	var target = check_destination()
+	if target.empty():
+		return
+	var collider = target.collider
+	if "Fire" in collider.name:
+		$HUD.remove_log()
+		collider.add_wood()
 
 func get_log():
-	print("lorg got")
+	$HUD.add_log()
