@@ -9,6 +9,8 @@ var movement_speed = 100
 var movement_direction = Vector2.ZERO
 var target_direction = Vector2.ZERO
 var tree = preload("res://WorldParts/Tree.tscn")
+var heat = 100
+var cooling_rate = 2.5
 
 
 func _ready():
@@ -16,6 +18,8 @@ func _ready():
 
 func _physics_process(delta):
 	process_input(delta)
+	cool_down(delta)
+	heat_up(delta)
 	play_animation()
 	move(delta)
 
@@ -156,3 +160,10 @@ func get_log():
 
 func add_seed():
 	$HUD.add_seed()
+
+func heat_up(delta):
+	pass
+
+func cool_down(delta):
+	heat -= delta * cooling_rate
+	$HUD.heat_change(heat)

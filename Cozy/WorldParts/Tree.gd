@@ -11,8 +11,10 @@ var is_growing = false
 var target_scale = 1.0
 var scale_increase = Vector2(0.005, 0.005)
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	z_index = global_position.y
 	$TotalResources.value = 100
 	rng.randomize()
 	if is_growing:
@@ -27,7 +29,6 @@ func _process(delta):
 
 func grow():
 	if scale.x < target_scale:
-		print(str(scale.x), target_scale)
 		scale += scale_increase
 
 func update_grow_meter():
@@ -44,10 +45,11 @@ func remove_resource():
 	#print("total", resource_amount, total_resource, $TotalResources.value)
 	dispense_resource()
 	if resource_amount <= 0:
-		var plant = plant_seed.instance()
-		plant.position = position
-		plant.position.y += 20
-		get_tree().root.add_child(plant)
+		for i in rng.randi_range(1, 3):
+			var plant = plant_seed.instance()
+			plant.position = position
+			plant.position.y += rng.randi_range(-20, 20)
+			get_tree().root.add_child(plant)
 		self.queue_free()
 	
 func dispense_resource():
@@ -84,5 +86,5 @@ func _on_GrowTimer_timeout():
 		$GrowTimer.stop()
 		is_growing = false
 		return
-	resource_amount += 1
+	resource_amount += rng.randi_range(0, 2)
 	target_scale += 0.25

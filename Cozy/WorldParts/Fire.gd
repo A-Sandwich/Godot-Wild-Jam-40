@@ -12,6 +12,8 @@ var extra_particles = []
 func _ready():
 	pass
 
+func _draw():
+	draw_circle(Vector2(0,0), 300, Color(1, 0, 0, 0.15))
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
