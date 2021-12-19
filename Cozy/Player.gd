@@ -5,12 +5,14 @@ var starting_position = Vector2(8, 8)
 var destination_position = Vector2(24, 8)
 var offset = Vector2(8, 8)
 var grid_size = 16
-var movement_speed = 100
+var base_movement_speed = 100
+var movement_speed = base_movement_speed
 var movement_direction = Vector2.ZERO
 var target_direction = Vector2.ZERO
 var tree = preload("res://WorldParts/Tree.tscn")
 var heat = 100
 var cooling_rate = 2.5
+var is_cooling = true
 
 
 func _ready():
@@ -18,10 +20,23 @@ func _ready():
 
 func _physics_process(delta):
 	process_input(delta)
-	cool_down(delta)
+	regulate_body_heat(delta)
 	heat_up(delta)
 	play_animation()
 	move(delta)
+
+func regulate_body_heat(delta):
+	if is_cooling:
+		heat -= delta * cooling_rate
+	else:
+		heat += delta * (cooling_rate * 4)
+	heat = clamp(heat, 0, 100)
+	if heat <= 0:
+		movement_speed = base_movement_speed / 2
+	else:
+		movement_speed = base_movement_speed
+	$HUD.heat_change(heat)
+		
 
 func move(delta):
 	if (global_position + offset).distance_to(destination_position) < 1:
@@ -164,6 +179,10 @@ func add_seed():
 func heat_up(delta):
 	pass
 
-func cool_down(delta):
-	heat -= delta * cooling_rate
-	$HUD.heat_change(heat)
+func warm():
+	print("Warming")
+	is_cooling = false
+
+func cool():
+	print("Cooling")
+	is_cooling = true

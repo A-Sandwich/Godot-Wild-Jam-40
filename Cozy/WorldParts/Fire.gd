@@ -7,13 +7,18 @@ var particle_step = 15
 var log_burn_time = 10.0
 var burn_time = 0.0
 var extra_particles = []
+var radius_increase = 25
+var base_radius = 250
+var target_radius = base_radius
+var current_radius = target_radius
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass
 
 func _draw():
-	draw_circle(Vector2(0,0), 300, Color(1, 0, 0, 0.15))
+	draw_circle(Vector2(0,0), current_radius, Color(1, 0, 0, 0.15))
+	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -44,12 +49,18 @@ func update_burn_meter():
 func remove_log():
 	current_logs -= 1
 	get_node("Wood/log"+str(current_logs)).visible = false
+	$Warmth/CollisionShape2D.shape.radius -= radius_increase
+	current_radius -= radius_increase
+	update()
 	
 func add_wood():
 	if current_logs >= max_logs:
 		return false
 	get_node("Wood/log"+str(current_logs)).visible = true
 	current_logs += 1
+	$Warmth/CollisionShape2D.shape.radius += radius_increase
+	current_radius += radius_increase
+	update()
 	if not $FireParticle.visible:
 		$FireParticle.visible = true
 	else:
@@ -58,3 +69,11 @@ func add_wood():
 		extra_particles.append(particle)
 		add_child(particle)
 	return true
+
+func _on_Warmth_body_entered(body):
+	if "Player" in body.name:
+		body.warm()
+
+func _on_Warmth_body_exited(body):
+	if "Player" in body.name:
+		body.cool()
