@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://ChopChop.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Sound/qubodupImpact/qubodupImpactWood.ogg" type="AudioStream" id=2]
+
+[node name="ChopChop" type="AudioStreamPlayer2D"]
+stream = ExtResource( 2 )
+volume_db = -15.0
+script = ExtResource( 1 )
+
+[node name="PlayTimeout" type="Timer" parent="."]
+wait_time = 0.5
+
+[connection signal="timeout" from="PlayTimeout" to="." method="_on_PlayTimeout_timeout"]

@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Rise03.wav-6de0a3ae6b2ba8b87a6a4af81816022f.sample"
+
+[deps]
+
+source_file="res://Assets/Sound/SoundPack01/Rise03.wav"
+dest_files=[ "res://.import/Rise03.wav-6de0a3ae6b2ba8b87a6a4af81816022f.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

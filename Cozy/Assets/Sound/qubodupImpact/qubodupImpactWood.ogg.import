@@ -11,5 +11,5 @@ dest_files=[ "res://.import/qubodupImpactWood.ogg-aa849c97a83143a0b2490cca437275
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

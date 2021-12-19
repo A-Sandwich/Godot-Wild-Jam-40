@@ -42,10 +42,9 @@ func update_grow_meter():
 func remove_resource():
 	resource_amount -= 1
 	$TotalResources.value = (resource_amount / total_resource) * 100
-	#print("total", resource_amount, total_resource, $TotalResources.value)
 	dispense_resource()
 	if resource_amount <= 0:
-		for i in rng.randi_range(1, 3):
+		for i in rng.randi_range(2, 4	):
 			var plant = plant_seed.instance()
 			plant.position = position
 			plant.position.y += rng.randi_range(-20, 20)

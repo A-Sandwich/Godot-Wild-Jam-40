@@ -1,9 +1,11 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Assets/Sprites/rpg-pack/chars/gabe/gabe-idle-run.png" type="Texture" id=1]
 [ext_resource path="res://Player.gd" type="Script" id=2]
 [ext_resource path="res://Assets/Sprites/rpg-pack/chars/gabe/gabe-axe.png" type="Texture" id=3]
 [ext_resource path="res://WorldParts/HUD.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Sound/ChopChop.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Sound/ResourceGet.tscn" type="PackedScene" id=6]
 
 [sub_resource type="CapsuleShape2D" id=9]
 radius = 3.0
@@ -81,3 +83,7 @@ centered = false
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
+
+[node name="ChopChop" parent="." instance=ExtResource( 5 )]
+
+[node name="ResourceGet" parent="." instance=ExtResource( 6 )]

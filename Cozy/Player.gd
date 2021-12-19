@@ -10,6 +10,7 @@ var movement_speed = base_movement_speed
 var movement_direction = Vector2.ZERO
 var target_direction = Vector2.ZERO
 var tree = preload("res://WorldParts/Tree.tscn")
+var resource_get = preload("res://Sound/ResourceGet.tscn")
 var heat = 100
 var cooling_rate = 2.5
 var is_cooling = true
@@ -55,7 +56,6 @@ func process_input(delta):
 		return
 
 	if Input.is_action_just_pressed("action_button"):
-		$AnimatedSprite.play("axe")
 		chop_tree(0)
 		feed_fire()
 		plant_seed()
@@ -143,6 +143,8 @@ func chop_tree(delta):
 	var collider = target.collider
 	#print(collider.get_parent().name)
 	if "Tree" in collider.name:
+		$ChopChop.play_chop()
+		$AnimatedSprite.play("axe")
 		collider.chop_chop(delta)
 
 func feed_fire():
@@ -172,9 +174,17 @@ func plant_seed():
 
 func get_log():
 	$HUD.add_log()
+	resource_get()
 
 func add_seed():
 	$HUD.add_seed()
+	resource_get()
+
+func resource_get():
+	var resource = resource_get.instance()
+	resource.global_position = global_position
+	get_tree().root.add_child(resource)
+	resource.play()
 
 func heat_up(delta):
 	pass
