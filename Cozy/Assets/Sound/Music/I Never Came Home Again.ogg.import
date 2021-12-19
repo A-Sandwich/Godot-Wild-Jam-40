@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/I Never Came Home Again.ogg-d24b7f94fa66cb9de518a8348f65cbc7.oggstr"
+
+[deps]
+
+source_file="res://Assets/Sound/Music/I Never Came Home Again.ogg"
+dest_files=[ "res://.import/I Never Came Home Again.ogg-d24b7f94fa66cb9de518a8348f65cbc7.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

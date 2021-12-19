@@ -14,6 +14,10 @@ config/name="Cozy"
 run/main_scene="res://World.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+BackgroundMusic="*res://Sound/BackgroundMusic.tscn"
+
 [display]
 
 window/size/width=240

@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/A Warm Fireplace.ogg-9fe5fba63c682e7287f8bcf7fd233a6d.oggstr"
+
+[deps]
+
+source_file="res://Assets/Sound/Music/A Warm Fireplace.ogg"
+dest_files=[ "res://.import/A Warm Fireplace.ogg-9fe5fba63c682e7287f8bcf7fd233a6d.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
