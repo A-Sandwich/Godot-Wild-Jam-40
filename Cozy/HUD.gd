@@ -4,6 +4,7 @@ var logs = 0
 var seeds = 0
 var current_temp = 100.0
 var target_temp = 100.0
+var trees = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -14,7 +15,12 @@ func _ready():
 func _process(delta):
 	show_log_count()
 	show_seed_count()
+	update_trees()
 	update_warmth(delta)
+
+func update_trees():
+	trees = len(get_tree().get_nodes_in_group("tree"))
+	$Trees/Label.text = str(trees)
 
 func update_warmth(delta):
 	if target_temp == current_temp:
