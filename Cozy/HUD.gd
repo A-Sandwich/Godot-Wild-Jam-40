@@ -5,13 +5,12 @@ var seeds = 0
 var current_temp = 100.0
 var target_temp = 100.0
 var trees = 0
+var goal = 15
+var has_won = false
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	$Heat/Warmth.value = current_temp
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	show_log_count()
 	show_seed_count()
@@ -20,7 +19,11 @@ func _process(delta):
 
 func update_trees():
 	trees = len(get_tree().get_nodes_in_group("tree"))
-	$Trees/Label.text = str(trees)
+	$Trees/Label.text = str(trees) + "/"+str(goal)
+	
+	if trees == goal and not has_won:
+		$Win.visible = true
+		has_won = true
 
 func update_warmth(delta):
 	if target_temp == current_temp:
@@ -61,3 +64,6 @@ func add_seed():
 
 func heat_change(heat):
 	target_temp = heat
+
+func _on_Button_pressed():
+	$Win.visible = false

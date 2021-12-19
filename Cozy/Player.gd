@@ -96,7 +96,9 @@ func process_input(delta):
 
 func _draw():
 	#print("drawing", starting_position, destination_position)
-	draw_line(to_local(starting_position), to_local(destination_position), Color(1, 1, 0))
+	#draw_line(to_local(starting_position), to_local(destination_position), Color(1, 1, 0))
+	#draw line exists to debug "target" of raycast
+	pass
 
 func is_position_invalid():
 	var result = check_destination()
@@ -190,9 +192,9 @@ func heat_up(delta):
 	pass
 
 func warm():
-	print("Warming")
+	#print("Warming")
 	is_cooling = false
 
 func cool():
-	print("Cooling")
+	#print("Cooling")
 	is_cooling = true

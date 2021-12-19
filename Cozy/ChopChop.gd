@@ -10,9 +10,9 @@ func _ready():
 
 
 func play_chop():
-	print("Play")
+	#print("Play")
 	if cooling_down:
-		print("Return")
+		#print("Return")
 		return
 	cooling_down = true
 	play()
